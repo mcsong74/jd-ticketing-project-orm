@@ -34,17 +34,17 @@ public class UserController {
 
     }
 //
-//    @PostMapping("/create")
-//    public String insertUser(UserDTO user,  Model model){
-//
-//        userService.save(user);
-//
-//        //user, rolelist, userlist object need to pass to view
-////        model.addAttribute("user", new UserDTO()); //is for new form after hit save button
-////        model.addAttribute("rolelist", roleService.findAll());
-////        model.addAttribute("userlist", userService.findAll());
-//        return("redirect:/user/create"); //redirect and removed redundancy of same code block
-//    }
+    @PostMapping("/create")
+    public String insertUser(UserDTO user,  Model model){
+
+        userService.save(user);
+
+        //user, rolelist, userlist object need to pass to view
+//        model.addAttribute("user", new UserDTO()); //is for new form after hit save button
+//        model.addAttribute("rolelist", roleService.findAll());
+//        model.addAttribute("userlist", userService.findAll());
+        return("redirect:/user/create"); //redirect and removed redundancy of same code block
+    }
 //
 //    @GetMapping("/update/{username}")
 //    public String editUser(@PathVariable("username") String username, Model model){
