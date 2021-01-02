@@ -27,7 +27,7 @@ public class UserController {
 //        userService.findAll().stream().forEach(user -> System.out.println(user.toString()));
 //        System.out.println(userService.findAll().toString());
         model.addAttribute("user", new UserDTO());
-        model.addAttribute("rolelist",roleService.findAll());
+        model.addAttribute("rolelist",roleService.listAllRoles());
         model.addAttribute("userlist", userService.findAll());
 
         return ("/user/create");
