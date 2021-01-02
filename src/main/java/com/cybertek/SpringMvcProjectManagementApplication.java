@@ -1,7 +1,9 @@
 package com.cybertek;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class SpringMvcProjectManagementApplication {
@@ -12,6 +14,12 @@ public class SpringMvcProjectManagementApplication {
 
 	}
 
+	@Bean
+	public ModelMapper modelMapper(){
+		//@SpringBootApplication covers ComponentScan, Configuration, EnableAutoConfiguration, so we can implement
+		// in the runner
+		return new ModelMapper();
+	}
 
 
 
