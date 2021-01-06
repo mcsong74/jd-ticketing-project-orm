@@ -34,7 +34,7 @@ public class ProjectController {
 //                .collect(Collectors.toList());
 //        model.addAttribute("managerList", managerList);
         model.addAttribute("project", new ProjectDTO());
-        model.addAttribute("managerList", userService.listAllByRole("manager"));
+        model.addAttribute("managerList", userService.listAllByRole("Manager"));
 //        model.addAttribute("managerList", userService.listAllUsers().stream()
 //                .filter(user->user.getRole().getDescription().equals("Manager"))
 //                .collect(Collectors.toList()));
@@ -45,7 +45,7 @@ public class ProjectController {
     @PostMapping("/create")
     public String insertProject(ProjectDTO project){
         projectService.save(project);
-        project.setProjectStatus(Status.OPEN);
+//        project.setProjectStatus(Status.OPEN);
         return "redirect:/project/create";
     }
 //    @GetMapping("/delete/{projectcode}")
