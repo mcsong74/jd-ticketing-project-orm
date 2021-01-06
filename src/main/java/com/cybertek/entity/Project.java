@@ -4,10 +4,7 @@ import com.cybertek.enums.Status;
 import lombok.*;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 
@@ -16,6 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
+@Entity
 @Table(name="projects")
 @Where(clause = "is_deleted=false")
 public class Project extends BaseEntity {
@@ -29,8 +27,8 @@ public class Project extends BaseEntity {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    private Status projectStatus;
     private String projectDetails;
+    private Status projectStatus;
 
 
 
