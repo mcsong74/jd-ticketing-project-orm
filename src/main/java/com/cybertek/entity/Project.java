@@ -1,41 +1,38 @@
 package com.cybertek.entity;
 
+import com.cybertek.enums.Status;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
-import javax.validation.constraints.AssertTrue;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Table(name="projects")
+@Where(clause = "is_deleted=false")
 public class Project extends BaseEntity {
     private String projectName;
     private String projectCode;
-    private String assignedManager;
-    private String startDate;
-    private String endDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="manager_id")
+    private User assignedManager;
+
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    private Status projectStatus;
     private String projectDetails;
 
-    public Project(Long id, LocalDateTime insertDateTime, Long insertUserId, LocalDateTime lastUpdateDateTime, Long lastUpdateUserId, Boolean isDeleted, String projectName, String projectCode, String assignedManager, String startDate, String endDate, String projectDetails) {
-        super(id, insertDateTime, insertUserId, lastUpdateDateTime, lastUpdateUserId, isDeleted);
-        this.projectName = projectName;
-        this.projectCode = projectCode;
-        this.assignedManager = assignedManager;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.projectDetails = projectDetails;
-    }
 
-//    public Project(Long id, LocalDateTime insertDateTime, Long insertUserId, LocalDateTime lastUpdateDateTime, Long lastUpdateUserId, String projectName, String projectCode, String assignedManager, String startDate, String endDate, String projectDetails) {
-//        super(id, insertDateTime, insertUserId, lastUpdateDateTime, lastUpdateUserId);
-//        this.projectName = projectName;
-//        this.projectCode = projectCode;
-//        this.assignedManager = assignedManager;
-//        this.startDate = startDate;
-//        this.endDate = endDate;
-//        this.projectDetails = projectDetails;
-//    }
+
+
 }
