@@ -30,7 +30,14 @@ public class BaseEntity {
     private void onPrePersist(){
         this.insertDateTime=LocalDateTime.now();
         this.lastUpdateDateTime=LocalDateTime.now();
+        //below hard coded, but will be dynamic when security added
         this.insertUserId=1L;
+        this.lastUpdateUserId=1L;
+    }
+
+    @PreUpdate
+    private void onPreUpdate(){
+        this.lastUpdateDateTime=LocalDateTime.now();
         this.lastUpdateUserId=1L;
     }
 
