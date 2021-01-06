@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
     private ModelMapper modelMapper;
 
-    public UserMapper(ModelMapper modelMapper) {
+    public UserMapper(ModelMapper modelMapper) {//injection using constructor instead of @Autowire
+
         this.modelMapper = modelMapper;
     }
 
