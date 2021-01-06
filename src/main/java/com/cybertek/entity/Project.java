@@ -19,8 +19,8 @@ public class Project extends BaseEntity {
     private String endDate;
     private String projectDetails;
 
-    public Project(Long id, LocalDateTime insertDateTime, Long insertUserId, LocalDateTime lastUpdateDateTime, Long lastUpdateUserId, String projectName, String projectCode, String assignedManager, String startDate, String endDate, String projectDetails) {
-        super(id, insertDateTime, insertUserId, lastUpdateDateTime, lastUpdateUserId);
+    public Project(Long id, LocalDateTime insertDateTime, Long insertUserId, LocalDateTime lastUpdateDateTime, Long lastUpdateUserId, Boolean isDeleted, String projectName, String projectCode, String assignedManager, String startDate, String endDate, String projectDetails) {
+        super(id, insertDateTime, insertUserId, lastUpdateDateTime, lastUpdateUserId, isDeleted);
         this.projectName = projectName;
         this.projectCode = projectCode;
         this.assignedManager = assignedManager;
@@ -28,4 +28,14 @@ public class Project extends BaseEntity {
         this.endDate = endDate;
         this.projectDetails = projectDetails;
     }
+
+//    public Project(Long id, LocalDateTime insertDateTime, Long insertUserId, LocalDateTime lastUpdateDateTime, Long lastUpdateUserId, String projectName, String projectCode, String assignedManager, String startDate, String endDate, String projectDetails) {
+//        super(id, insertDateTime, insertUserId, lastUpdateDateTime, lastUpdateUserId);
+//        this.projectName = projectName;
+//        this.projectCode = projectCode;
+//        this.assignedManager = assignedManager;
+//        this.startDate = startDate;
+//        this.endDate = endDate;
+//        this.projectDetails = projectDetails;
+//    }
 }

@@ -13,6 +13,6 @@ public interface UserService {
     UserDTO update(UserDTO dto);
     void delete(String username);
 
-
+    void deleteByUserName(String username);
 
 }

@@ -55,6 +55,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(String username) {
+        User user=userRepository.findByUserName(username);
+        user.setIsDeleted(true);
+        userRepository.save(user);
+    }
 
+    @Override
+    public void deleteByUserName(String username) {
+        //hard delete
+        userRepository.deleteByUserName(username);
     }
 }
