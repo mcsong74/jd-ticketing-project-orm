@@ -1,35 +1,44 @@
 package com.cybertek.controller;
 
+import com.cybertek.dto.ProjectDTO;
+import com.cybertek.service.ProjectService;
+import com.cybertek.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
-//    ProjectService projectService;
-//    UserService userService;
+    ProjectService projectService;
+    UserService userService;
 //    TaskService taskService;
-//    public ProjectController(ProjectService projectService, UserService userService, TaskService taskService) {
-//        this.projectService = projectService;
-//        this.userService = userService;
-//        this.taskService=taskService;
-//    }
+
+    public ProjectController(ProjectService projectService, UserService userService) {
+        this.projectService = projectService;
+        this.userService = userService;
+    }
+
 //
-//    @GetMapping("/create")
-//    public String createProject(Model model){
-//        model.addAttribute("project", new ProjectDTO());
-////        List<UserDTO> managerList=userService.findAll().stream()
-////                .filter(user->user.getRole().getDescription().equals("Manager"))
-////                .collect(Collectors.toList());
-////        model.addAttribute("managerList", managerList);
-//        model.addAttribute("project", new ProjectDTO());
-//        model.addAttribute("managerList", userService.findAll().stream()
+    @GetMapping("/create")
+    public String createProject(Model model){
+        model.addAttribute("project", new ProjectDTO());
+//        List<UserDTO> managerList=userService.findAll().stream()
+//                .filter(user->user.getRole().getDescription().equals("Manager"))
+//                .collect(Collectors.toList());
+//        model.addAttribute("managerList", managerList);
+        model.addAttribute("project", new ProjectDTO());
+        model.addAttribute("managerList", userService.listAllByRole("manager"));
+//        model.addAttribute("managerList", userService.listAllUsers().stream()
 //                .filter(user->user.getRole().getDescription().equals("Manager"))
 //                .collect(Collectors.toList()));
-//        model.addAttribute("projectlist", projectService.findAll());
-//
-//        return "/project/create";
-//    }
+        model.addAttribute("projectlist", projectService.listAllProjects());
+
+        return "/project/create";
+    }
 //    @PostMapping("/create")
 //    public String insertProject(ProjectDTO project){
 //        projectService.save(project);

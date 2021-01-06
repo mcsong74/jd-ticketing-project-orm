@@ -8,8 +8,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProjectMapper {
-    @Autowired
     private ModelMapper modelMapper;
+
+    public ProjectMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     public Project convertToEntity(ProjectDTO dto){
         return modelMapper.map(dto, Project.class);
