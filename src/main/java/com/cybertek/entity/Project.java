@@ -20,7 +20,7 @@ public class Project extends BaseEntity {
     private String projectName;
     private String projectCode;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="manager_id")
     private User assignedManager;
 

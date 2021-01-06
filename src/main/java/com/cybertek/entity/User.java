@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -27,6 +29,9 @@ public class User extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+//    @OneToMany(mappedBy = "assignedManager", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE})
+//    List<Project> projects=new ArrayList<>();
 
 
 }

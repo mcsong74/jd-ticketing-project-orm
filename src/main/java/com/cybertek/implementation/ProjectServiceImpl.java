@@ -7,7 +7,6 @@ import com.cybertek.mapper.ProjectMapper;
 import com.cybertek.mapper.RoleMapper;
 import com.cybertek.mapper.UserMapper;
 import com.cybertek.repository.ProjectRepository;
-import com.cybertek.repository.UserRepository;
 import com.cybertek.service.ProjectService;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectMapper projectMapper;
     private ProjectRepository projectRepository;
     private UserMapper userMapper;
-    private RoleMapper roleMapper;
 
 
     public ProjectServiceImpl(ProjectMapper projectMapper, ProjectRepository projectRepository, UserMapper userMapper) {
@@ -36,16 +34,19 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectDTO> listAllProjects() {
-        List<Project> projects=projectRepository.findAll(Sort.by("project_code"));
+        List<Project> projects=projectRepository.findAll();
         return projects.stream()
-                .map(obj-> {return projectMapper.convertToDTO(obj);})
-                .collect(Collectors.toList());
+                .map(prj->{
+                    return projectMapper.convertToDTO(prj);
+                }).collect(Collectors.toList());
+
     }
 
     @Override
     public void save(ProjectDTO dto) {
         dto.setProjectStatus(Status.OPEN);
         Project obj= projectMapper.convertToEntity(dto);
+
 //        obj.setAssignedManager(userMapper.convertToEntity(dto.getAssignedManager()));
         projectRepository.save(obj);
 
