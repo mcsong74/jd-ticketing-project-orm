@@ -49,7 +49,6 @@ public class ProjectServiceImpl implements ProjectService {
         dto.setProjectStatus(Status.OPEN);
         Project obj= projectMapper.convertToEntity(dto);
 //        obj.setAssignedManager(userMapper.convertToEntity(dto.getAssignedManager()));
-
         projectRepository.save(obj);
 
     }
@@ -61,6 +60,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void delete(String code) {
-
+        Project project = projectRepository.findByProjectCode(code); //get Entity from database
+        project.setIsDeleted(true); //set isDeleted value true in the Entity
+        projectRepository.save(project);//save the updated entity to data base
     }
 }
