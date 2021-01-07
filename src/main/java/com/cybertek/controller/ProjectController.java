@@ -54,31 +54,31 @@ public class ProjectController {
         projectService.delete(projectcode);
         return "redirect:/project/create";
     }
-//
-//    @GetMapping("/update/{projectcode}")
-//    public String editProject(@PathVariable("projectcode") String projectcode, Model model){
-//        model.addAttribute("project", projectService.findById(projectcode));
-//        model.addAttribute("managerlist", userService.findManagers());
-////        model.addAttribute("managerlist", userService.findAll().stream()
-////                .filter(user->user.getRole().getDescription().equals("Manager"))
-////                .collect(Collectors.toList()));
+
+    @GetMapping("/update/{projectcode}")
+    public String editProject(@PathVariable("projectcode") String projectcode, Model model){
+        model.addAttribute("project", projectService.getByProjectDto(projectcode));
+        model.addAttribute("managerlist", userService.listAllByRole("Manager"));
+//        model.addAttribute("managerlist", userService.findAll().stream()
+//                .filter(user->user.getRole().getDescription().equals("Manager"))
+//                .collect(Collectors.toList()));
+        model.addAttribute("projectlist", projectService.listAllProjects());
+        return "/project/update";
+    }
+
+    @PostMapping("/update/{projectcode}")
+    public String updateProject(@PathVariable("projectcode") String projectcode, ProjectDTO project){
+//        project.setProjectStatus(projectService.findById(projectcode).getProjectStatus()); //implemented to service
+        projectService.update(project);
+        //redirect replaced below commented
+//        model.addAttribute("project", new ProjectDTO());
+//        model.addAttribute("managerlist", userService.findAll().stream()
+//                .filter(user->user.getRole().getDescription().equals("Manager"))
+//                .collect(Collectors.toList()));
 //        model.addAttribute("projectlist", projectService.findAll());
-//        return "/project/update";
-//    }
-//
-//    @PostMapping("/update/{projectcode}")
-//    public String updateProject(@PathVariable("projectcode") String projectcode, ProjectDTO project){
-////        project.setProjectStatus(projectService.findById(projectcode).getProjectStatus()); //implemented to service
-//        projectService.updateByObj(project);
-//        //redirect replaced below commented
-////        model.addAttribute("project", new ProjectDTO());
-////        model.addAttribute("managerlist", userService.findAll().stream()
-////                .filter(user->user.getRole().getDescription().equals("Manager"))
-////                .collect(Collectors.toList()));
-////        model.addAttribute("projectlist", projectService.findAll());
-//        return "redirect:/project/create";
-//    }
-//
+        return "redirect:/project/create";
+    }
+
     @GetMapping("/complete/{projectcode}")
     public String completeProject(@PathVariable("projectcode") String projectcode){
 //        projectService.findById(projectcode).setProjectStatus(Status.COMPLETE);
