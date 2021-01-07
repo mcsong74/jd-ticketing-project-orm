@@ -18,9 +18,12 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false, updatable = false) //will assign date and time when 1st time only
     private LocalDateTime insertDateTime;
+
+    @Column(nullable = false, updatable = false) //will assign date and time when 1st time only
     private Long insertUserId;
+
     private LocalDateTime lastUpdateDateTime;
     private Long lastUpdateUserId;
 

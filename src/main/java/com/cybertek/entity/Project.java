@@ -18,6 +18,8 @@ import java.time.LocalDate;
 @Where(clause = "is_deleted=false")
 public class Project extends BaseEntity {
     private String projectName;
+
+    @Column(unique = true)//server side validation
     private String projectCode;
 
     @ManyToOne(fetch = FetchType.EAGER)
