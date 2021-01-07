@@ -59,9 +59,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void delete(String code) {
-        Project project = projectRepository.findByProjectCode(code); //get Entity from database
+    public void delete(String projectCode) {
+        Project project = projectRepository.findByProjectCode(projectCode); //get Entity from database
         project.setIsDeleted(true); //set isDeleted value true in the Entity
         projectRepository.save(project);//save the updated entity to data base
+    }
+
+    @Override
+    public void complete(String projectCode) {
+        Project project=projectRepository.findByProjectCode(projectCode);
+        project.setProjectStatus(Status.COMPLETE);
+        projectRepository.save(project);
     }
 }

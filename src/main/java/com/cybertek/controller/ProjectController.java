@@ -79,12 +79,12 @@ public class ProjectController {
 //        return "redirect:/project/create";
 //    }
 //
-//    @GetMapping("/complete/{projectcode}")
-//    public String completeProject(@PathVariable("projectcode") String projectcode){
-////        projectService.findById(projectcode).setProjectStatus(Status.COMPLETE);
-//        projectService.complete(projectService.findById(projectcode));
-//        return "redirect:/project/create";
-//    }
+    @GetMapping("/complete/{projectcode}")
+    public String completeProject(@PathVariable("projectcode") String projectcode){
+//        projectService.findById(projectcode).setProjectStatus(Status.COMPLETE);
+        projectService.complete(projectcode);
+        return "redirect:/project/create";
+    }
 //
 //
 //    @GetMapping("/manager/complete")
