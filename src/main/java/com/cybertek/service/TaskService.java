@@ -1,7 +1,7 @@
 package com.cybertek.service;
 
 import com.cybertek.dto.TaskDTO;
-import org.springframework.scheduling.config.Task;
+import com.cybertek.entity.Task;
 
 import java.util.List;
 

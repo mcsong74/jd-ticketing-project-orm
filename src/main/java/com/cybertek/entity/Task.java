@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -17,7 +18,8 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name="tasks")
-public class TaskEntity extends BaseEntity{
+@Where(clause = "is_deleted=false")
+public class Task extends BaseEntity{
 
     private String taskSubject;
     private String details;

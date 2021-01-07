@@ -40,7 +40,7 @@
                                                 <label for="project">Project</label>
                                                 <select class="custom-select d-block w-100" id="project" name="project" required
                                                         th:field="*{project}">
-                                                    <option value="">Select ...</option>
+<!--                                                    <option value="">Select ...</option>-->
                                                     <option th:each="project:${projectlist}"
                                                             th:value="${project.projectCode}"
                                                             th:text="${project.projectCode+' - '+project.projectName}"
@@ -57,7 +57,7 @@
                                                 <label for="assignEmployee">Assigned Employee</label>
                                                 <select class="custom-select d-block w-100 " id="assignEmployee" name="assignEmployee" required
                                                         th:field="*{assignedEmployee}">
-                                                    <option value="">Select ...</option>
+<!--                                                    <option value="">Select ...</option>-->
                                                     <option th:each="user:${employeelist}" th:value="${user.userName}"
                                                             th:text="${user.firstName+' '+user.lastName+' ('+user.role.description+')'}"
                                                             th:selected="${user.userName.equals(task.assignedEmployee.userName)}">

@@ -59,7 +59,7 @@
                                                 <label for="role">Assigned Manager</label>
                                                 <select class="custom-select d-block w-100" id="role" name="role"
                                                         th:field="*{assignedManager}" required>
-                                                    <option value="">Select ...</option>
+<!--                                                    <option value="">Select ...</option>-->
                                                     <option th:each="manager:${managerlist}"
                                                             th:value="${manager.userName}"
                                                             th:text="${manager.firstName+' '+manager.lastName}"
@@ -158,7 +158,8 @@
                                                 <td th:text="${aProject.assignedManager.firstName+' '+aProject.assignedManager.lastName}"></td>
                                                 <td th:text="${aProject.projectStatus.getValue()}"></td>
                                                 <td>
-                                                    <a th:href="@{/project/update/{projectcode}(projectcode=${aProject.projectCode})}"
+                                                    <a
+                                                            th:href="@{/project/update/{projectcode}(projectcode=${aProject.projectCode})}"
                                                        class="btn btn-warning btn-sm rounded-0" >Update</a>
                                                     <a th:href="@{/project/delete/{projectcode}(projectcode=${aProject.projectCode})}"
                                                        class="btn btn-danger btn-sm rounded-0" type="submit">Delete</a>

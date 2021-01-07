@@ -1,8 +1,8 @@
 package com.cybertek.mapper;
 
 import com.cybertek.dto.TaskDTO;
+import com.cybertek.entity.Task;
 import org.modelmapper.ModelMapper;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Component;
 
 @Component
