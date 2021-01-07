@@ -16,6 +16,8 @@ import java.util.List;
 @Table(name="users")
 @Where(clause = "is_deleted=false")
 public class User extends BaseEntity{
+
+
     private String firstName;
     private String lastName;
     private String userName;

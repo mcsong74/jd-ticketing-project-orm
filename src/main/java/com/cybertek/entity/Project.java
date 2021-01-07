@@ -24,6 +24,7 @@ public class Project extends BaseEntity {
     @JoinColumn(name="manager_id")
     private User assignedManager;
 
+
     private LocalDate startDate;
     private LocalDate endDate;
 
