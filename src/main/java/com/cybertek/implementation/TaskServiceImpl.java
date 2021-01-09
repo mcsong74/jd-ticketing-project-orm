@@ -93,19 +93,21 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.totalCountCompletedTasks(projectCode);
     }
 
-    @Override
-    public List<TaskDTO> listAllByProject(ProjectDTO project) {
-        List<Task> list=taskRepository.findAllByProject(projectMapper.convertToEntity(project));
-        return list.stream().map(task->{
-            return taskMapper.converToDTO(task);
-        }).collect(Collectors.toList());
-    }
 
     @Override
     public void deleteByProject(ProjectDTO project) {
-        List<TaskDTO> taskDTOS=listAllByProject(project);
+        List<TaskDTO> taskDTOS=listAllTasksByProject(project);
         taskDTOS.forEach(taskDTO -> delete(taskDTO.getId()));
 
 
+    }
+
+    @Override
+    public List<TaskDTO> listAllTasksByProject(ProjectDTO project) {
+        List<Task> list=taskRepository.findAllByProject(projectMapper.convertToEntity(project));
+
+        return list.stream().map(obj->{
+            return taskMapper.converToDTO(obj);
+        }).collect(Collectors.toList());
     }
 }

@@ -78,6 +78,7 @@ public class ProjectServiceImpl implements ProjectService {
         project.setProjectCode("d-"+project.getProjectCode()+'-'+project.getId());
         projectRepository.save(project);//save the updated entity to data base
         taskService.deleteByProject(projectMapper.convertToDTO(project));
+
     }
 
     @Override
