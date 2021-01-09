@@ -76,12 +76,22 @@ public class TaskController {
 //
     @GetMapping("/employee")
     public String edit(Model model){
-        List<TaskDTO> tasks=taskService.ListAllTasksByStatusIsNot(Status.COMPLETE);
+        List<TaskDTO> tasks=taskService.listAllTasksByStatusIsNot(Status.COMPLETE);
         model.addAttribute("tasks", tasks);
 
         return "/task/employee-tasks";
     }
-
+    @GetMapping("/employee/edit/{id}")
+    public String employee_update(@PathVariable("id") Long id, Model model){
+        TaskDTO task=taskService.findById(id);
+        List<TaskDTO> tasks= taskService.listAllTasksByProjectManager();
+        model.addAttribute("task", task);
+        model.addAttribute("users", userService.listAllByRole("Employee"));
+        model.addAttribute("projects", projectService.listAllProjects());
+        model.addAttribute("tasks", tasks);
+        model.addAttribute("status", Status.values());
+        return "/task/employee-update";
+    }
 //    @GetMapping("/employee/pending")
 //    public String pendingTasks(Model model) {
 //        model.addAttribute("task", new TaskDTO());

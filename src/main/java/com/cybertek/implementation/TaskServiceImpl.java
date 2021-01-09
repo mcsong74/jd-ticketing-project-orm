@@ -3,10 +3,12 @@ package com.cybertek.implementation;
 import com.cybertek.dto.ProjectDTO;
 import com.cybertek.dto.TaskDTO;
 import com.cybertek.entity.Task;
+import com.cybertek.entity.User;
 import com.cybertek.enums.Status;
 import com.cybertek.mapper.ProjectMapper;
 import com.cybertek.mapper.TaskMapper;
 import com.cybertek.repository.TaskRepository;
+import com.cybertek.repository.UserRepository;
 import com.cybertek.service.TaskService;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,13 @@ public class TaskServiceImpl implements TaskService {
     private TaskMapper taskMapper;
     private TaskRepository taskRepository;
     private ProjectMapper projectMapper;
+    private UserRepository userRepository;
 
-    public TaskServiceImpl(TaskMapper taskMapper, TaskRepository taskRepository) {
+    public TaskServiceImpl(TaskMapper taskMapper, TaskRepository taskRepository, ProjectMapper projectMapper, UserRepository userRepository) {
         this.taskMapper = taskMapper;
         this.taskRepository = taskRepository;
+        this.projectMapper = projectMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -102,6 +107,7 @@ public class TaskServiceImpl implements TaskService {
 
     }
 
+
     @Override
     public List<TaskDTO> listAllTasksByProject(ProjectDTO project) {
         List<Task> list=taskRepository.findAllByProject(projectMapper.convertToEntity(project));
@@ -109,5 +115,20 @@ public class TaskServiceImpl implements TaskService {
         return list.stream().map(obj->{
             return taskMapper.converToDTO(obj);
         }).collect(Collectors.toList());
+    }
+    @Override
+    public List<TaskDTO> listAllTasksByStatusIsNot(Status status) {
+
+        User user =userRepository.findByUserName("mazabocuw"); //hard coded, and will be dynamic later
+        List<Task> list = taskRepository.findAllByStatusIsNotAndAssignedEmployee(status, user);
+
+        return list.stream().map(taskMapper::converToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskDTO> listAllTasksByProjectManager() {
+        User user = userRepository.findByUserName("mazabocuw");
+        List<Task> tasks=taskRepository.findAllByProjectAssignedManager(user);
+        return tasks.stream().map(taskMapper::converToDTO).collect(Collectors.toList());
     }
 }
