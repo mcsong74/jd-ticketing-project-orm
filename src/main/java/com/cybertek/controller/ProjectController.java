@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -87,19 +88,22 @@ public class ProjectController {
     }
 //
 //
-//    @GetMapping("/manager/complete")
-//    public String getProjectByManager(Model model){
-//
-////        List<ProjectDTO> projects=projectService.findAll().stream()
-////                .filter(p->p.getAssignedManager().equals(userService.findById("john@cybertek.com")))
-////                .collect(Collectors.toList());
+    @GetMapping("/manager/complete")
+    public String getProjectByManager(Model model){
+// for MVC
+//        List<ProjectDTO> projects=projectService.findAll().stream()
+//                .filter(p->p.getAssignedManager().equals(userService.findById("john@cybertek.com")))
+//                .collect(Collectors.toList());
 //        model.addAttribute("projects", getCountedListOfProjectDTOByManager(userService.findById("john@cybertek.com")));
-//
-//
-//
-//        return "/manager/project-status";
-//    }
-//
+
+        //ORM
+        List<ProjectDTO> projects = projectService.listAllProjectDetails();
+        model.addAttribute("projects", projects);
+
+
+        return "/manager/project-status";
+    }
+//  do not need this method when we working with ORM
 //    public List<ProjectDTO> getCountedListOfProjectDTOByManager(UserDTO manager){
 //        List<ProjectDTO> list=projectService.findAll().stream()
 //                .filter(p->p.getAssignedManager().equals(manager))
