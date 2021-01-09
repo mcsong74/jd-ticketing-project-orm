@@ -79,6 +79,7 @@ public class ProjectServiceImpl implements ProjectService {
         // by changing project code, user can create a project with same project code
         project.setProjectCode("D-"+project.getProjectCode()+'-'+project.getId());
         projectRepository.save(project);//save the updated entity to data base
+        taskService.deleteByProject(projectMapper.convertToDTO(project));
     }
 
     @Override

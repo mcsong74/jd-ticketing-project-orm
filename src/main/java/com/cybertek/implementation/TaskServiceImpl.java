@@ -103,6 +103,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void deleteByProject(ProjectDTO project) {
+        List<TaskDTO> taskDTOS=listAllTasksByProject(project);
+        taskDTOS.stream().forEach(taskDTO -> delete(taskDTO.getId()));
+
 
     }
 }
