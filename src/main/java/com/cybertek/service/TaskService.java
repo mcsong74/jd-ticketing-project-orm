@@ -3,6 +3,7 @@ package com.cybertek.service;
 import com.cybertek.dto.ProjectDTO;
 import com.cybertek.dto.TaskDTO;
 import com.cybertek.entity.Task;
+import com.cybertek.enums.Status;
 
 import java.util.List;
 
@@ -20,5 +21,6 @@ public interface TaskService {
     List<TaskDTO> listAllTasksByProject(ProjectDTO project);
     void deleteByProject(ProjectDTO project);
 
+    List<TaskDTO> ListAllTasksByStatusIsNot(Status status);
 
 }
