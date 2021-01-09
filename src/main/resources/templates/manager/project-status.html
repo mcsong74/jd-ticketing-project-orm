@@ -84,7 +84,10 @@
                                                         +project.getCompletedTaskCount()}"></td>
                                                 <td th:text="${project.getProjectStatus()}"></td>
                                                 <td>
-                                                    <a class="btn btn-info btn-sm" type="submit">Complete</a>
+                                                    <a class="btn btn-info btn-sm" type="submit"
+                                                    th:href="@{/project/manager/complete/{id}(id=${project.projectCode})}">
+                                                        Complete
+                                                    </a>
                                                 </td>
 
                                             </tr>
