@@ -59,8 +59,6 @@ public class ProjectServiceImpl implements ProjectService {
 //        obj.setAssignedManager(userMapper.convertToEntity(dto.getAssignedManager()));
         projectRepository.save(obj);
 
-        taskService.deleteByProject(projectMapper.convertToDTO(obj));
-
     }
 
     @Override
@@ -77,7 +75,7 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectRepository.findByProjectCode(projectCode); //get Entity from database
         project.setIsDeleted(true); //set isDeleted value true in the Entity
         // by changing project code, user can create a project with same project code
-        project.setProjectCode("D-"+project.getProjectCode()+'-'+project.getId());
+        project.setProjectCode("d-"+project.getProjectCode()+'-'+project.getId());
         projectRepository.save(project);//save the updated entity to data base
         taskService.deleteByProject(projectMapper.convertToDTO(project));
     }

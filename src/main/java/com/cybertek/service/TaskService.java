@@ -17,7 +17,7 @@ public interface TaskService {
     int totalCountNonCompletedTasks(String projectCode);
     int totalCountCompletedTasks(String projectCode);
 
-    List<TaskDTO> listAllTasksByProject(ProjectDTO project);
+    List<TaskDTO> listAllByProject(ProjectDTO project);
     void deleteByProject(ProjectDTO project);
 
 

@@ -94,7 +94,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDTO> listAllTasksByProject(ProjectDTO project) {
+    public List<TaskDTO> listAllByProject(ProjectDTO project) {
         List<Task> list=taskRepository.findAllByProject(projectMapper.convertToEntity(project));
         return list.stream().map(task->{
             return taskMapper.converToDTO(task);
@@ -103,8 +103,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void deleteByProject(ProjectDTO project) {
-        List<TaskDTO> taskDTOS=listAllTasksByProject(project);
-        taskDTOS.stream().forEach(taskDTO -> delete(taskDTO.getId()));
+        List<TaskDTO> taskDTOS=listAllByProject(project);
+        taskDTOS.forEach(taskDTO -> delete(taskDTO.getId()));
 
 
     }
