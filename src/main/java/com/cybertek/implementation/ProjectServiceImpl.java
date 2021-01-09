@@ -10,6 +10,7 @@ import com.cybertek.mapper.RoleMapper;
 import com.cybertek.mapper.UserMapper;
 import com.cybertek.repository.ProjectRepository;
 import com.cybertek.service.ProjectService;
+import com.cybertek.service.TaskService;
 import com.cybertek.service.UserService;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,14 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRepository projectRepository;
     private UserMapper userMapper;
     private UserService userService;
+    private TaskService taskService;
 
-    public ProjectServiceImpl(ProjectMapper projectMapper, ProjectRepository projectRepository, UserMapper userMapper, UserService userService) {
+    public ProjectServiceImpl(ProjectMapper projectMapper, ProjectRepository projectRepository, UserMapper userMapper, UserService userService, TaskService taskService) {
         this.projectMapper = projectMapper;
         this.projectRepository = projectRepository;
         this.userMapper = userMapper;
         this.userService = userService;
+        this.taskService = taskService;
     }
 
     @Override
@@ -90,6 +93,8 @@ public class ProjectServiceImpl implements ProjectService {
 
         return projectList.stream().map(proj->{
             ProjectDTO obj=projectMapper.convertToDTO(proj);
+            obj.setUnfinishedTaskCount(taskService.totalCountNonCompletedTasks(proj.getProjectCode()));
+            obj.setCompletedTaskCount(taskService.totalCountCompletedTasks(proj.getProjectCode()));
             return obj;
         }).collect(Collectors.toList());
     }
