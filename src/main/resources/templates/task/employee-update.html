@@ -17,7 +17,9 @@
                                 </header>
                                 <div class="panel-body">
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form id="needs-validation" novalidate th:action="@{/task/employee/update/{id}(id=${task.id})}" method="post" th:object="${task}">
+                                    <form id="needs-validation" novalidate
+                                          th:action="@{/task/employee/update/{id}(id=${task.id})}" method="post"
+                                          th:object="${task}">
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-xs-12">
                                                 <div class="form-group">
@@ -60,7 +62,8 @@
                                                     <div class="col-sm-12 col-md-12 col-xs-12">
                                                         <div class="form-group">
                                                             <label>Detail</label>
-                                                            <textarea class="form-control" rows="3" th:field="*{taskDetail}" aria-describedby="inputGroupPrepend" disabled ></textarea>
+                                                            <textarea class="form-control" rows="3" th:field="*{details}"
+                                                                      aria-describedby="inputGroupPrepend" disabled ></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -72,7 +75,9 @@
                                                     <label>Status</label>
                                                     <select name="taskStatus" class="custom-select" required >
                                                         <option th:value="''" th:text="Select"></option>
-                                                        <option th:each="s : ${statuses}" th:value="${s}" th:text="${s.value}" th:selected="${s == task.taskStatus}"></option>
+                                                        <option th:each="s : ${status}" th:value="${s}"
+                                                                th:text="${s.value}"
+                                                                th:selected="${s == task.status}"></option>
                                                     </select>
                                                     <div class="invalid-feedback">Please choose Status</div>
                                                 </div>
