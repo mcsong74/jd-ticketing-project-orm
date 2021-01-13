@@ -15,7 +15,7 @@ public class SpringMvcProjectManagementApplication {
 	}
 
 	@Bean
-	public ModelMapper modelMapper(){
+	public ModelMapper modelMapper(){//should be in Configuration
 		//@SpringBootApplication covers ComponentScan, Configuration, EnableAutoConfiguration, so we can implement
 		// in the runner
 		return new ModelMapper();

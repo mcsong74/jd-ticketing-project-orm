@@ -5,12 +5,15 @@ import com.cybertek.dto.TaskDTO;
 import com.cybertek.dto.UserDTO;
 import com.cybertek.entity.Project;
 import com.cybertek.entity.User;
+import com.cybertek.exception.TicketingProjectException;
+import com.cybertek.mapper.MapperUtil;
 import com.cybertek.mapper.UserMapper;
 import com.cybertek.repository.UserRepository;
 import com.cybertek.service.ProjectService;
 import com.cybertek.service.TaskService;
 import com.cybertek.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -19,33 +22,44 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    UserMapper userMapper;
-    @Autowired
-    ProjectService projectService;
-    @Autowired
-    TaskService taskService;
+    private UserRepository userRepository;
+//    UserMapper userMapper;
+    private ProjectService projectService;
+    private TaskService taskService;
+    private MapperUtil mapperUtil;
+
+    public UserServiceImpl(UserRepository userRepository, @Lazy ProjectService projectService, TaskService taskService,
+                           MapperUtil mapperUtil) {
+        this.userRepository = userRepository;
+        this.projectService = projectService;
+        this.taskService = taskService;
+        this.mapperUtil = mapperUtil;
+    }
 
     @Override
     public List<UserDTO> listAllUsers() {
         List<User> list=userRepository.findAll(Sort.by("firstName"));
         //convert entity to DTO
         return list.stream()
-                .map(obj-> {return userMapper.convertToDTO(obj);})
+//                .map(obj-> {return userMapper.convertToDTO(obj);})
+                .map(obj-> {return mapperUtil.convert(obj, new UserDTO());})
+
                 .collect(Collectors.toList());
     }
 
     @Override
     public UserDTO findByUserName(String userName) {
         User user=userRepository.findByUserName(userName);
-        return userMapper.convertToDTO(user);
+//        return userMapper.convertToDTO(user);
+        return mapperUtil.convert(user, new UserDTO());
+
     }
 
     @Override
     public void save(UserDTO dto) {
-        User user=userMapper.convertToEntity(dto);
+//        User user=userMapper.convertToEntity(dto);
+        User user=mapperUtil.convert(dto, new User());
+
         userRepository.save(user);
 
     }
@@ -55,7 +69,9 @@ public class UserServiceImpl implements UserService {
         //Find current user
         User user = userRepository.findByUserName(dto.getUserName());
         //Map update user dto to entity object
-        User convertedUser= userMapper.convertToEntity(dto);
+//        User convertedUser= userMapper.convertToEntity(dto);
+        User convertedUser= mapperUtil.convert(dto, new User());
+
         //set id to the converted object
         convertedUser.setId(user.getId());
         //save updated user
@@ -64,8 +80,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(String username) {
+    public void delete(String username) throws TicketingProjectException {
         User user=userRepository.findByUserName(username);
+        if(user == null){
+            throw new TicketingProjectException("User does not exists");
+        }
+        if (!checkIfUserCanBeDeleted(user)){
+            throw new TicketingProjectException("User can not be deleted.  It is linked by a project or task");
+        }
+        user.setUserName("d-"+user.getUserName()+"-"+user.getId());
+
         user.setIsDeleted(true);
         userRepository.save(user);
     }
@@ -81,7 +105,9 @@ public class UserServiceImpl implements UserService {
         List<User> users=userRepository.findAllByRoleDescriptionIgnoreCase(role);
         return users.stream()
                 .map(user->{
-                    return userMapper.convertToDTO(user);
+//                    return userMapper.convertToDTO(user);
+                    return mapperUtil.convert(user, new UserDTO());
+
                 })
                 .collect(Collectors.toList());
     }

@@ -87,16 +87,16 @@ public class TaskController {
 //        List<TaskDTO> tasks= taskService.listAllTasksByProjectManager();
         List<TaskDTO> tasks=taskService.listAllTasksByStatusIsNot(Status.COMPLETE);
         model.addAttribute("task", task);
-        model.addAttribute("users", userService.listAllByRole("Employee"));
+        model.addAttribute("users", userService.listAllByRole("employee"));
         model.addAttribute("projects", projectService.listAllProjects());
         model.addAttribute("tasks", tasks);
-        model.addAttribute("status", Status.values());
+        model.addAttribute("statuses", Status.values());
         return "/task/employee-update";
     }
 
     @PostMapping("/employee/update/{id}")
-    public String employee_update(@PathVariable("id") Long id, TaskDTO taskDTO){
-        taskService.updateStatus(taskDTO);
+    public String employee_update(@PathVariable("id") Long id, TaskDTO task){
+        taskService.updateStatus(task);
 
         return "redirect:/task/employee";
     }

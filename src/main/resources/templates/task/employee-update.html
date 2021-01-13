@@ -17,9 +17,7 @@
                                 </header>
                                 <div class="panel-body">
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form id="needs-validation" novalidate
-                                          th:action="@{/task/employee/update/{id}(id=${task.id})}" method="post"
-                                          th:object="${task}">
+                                    <form id="needs-validation" novalidate th:action="@{/task/employee/update/{id}(id=${task.id})}" method="post" th:object="${task}">
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-xs-12">
                                                 <div class="form-group">
@@ -73,11 +71,11 @@
                                             <div class="col-sm-6 col-md-6 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Status</label>
-                                                    <select name="taskStatus" class="custom-select" required >
+                                                    <select name="taskStatus" class="custom-select" required
+                                                            th:field="*{status}">
                                                         <option th:value="''" th:text="Select"></option>
-                                                        <option th:each="s : ${status}" th:value="${s}"
-                                                                th:text="${s.value}"
-                                                                th:selected="${s == task.status}"></option>
+                                                        <option th:each="s : ${statuses}" th:value="${s}"
+                                                                th:text="${s.value}" th:selected="${s == task.status}"></option>
                                                     </select>
                                                     <div class="invalid-feedback">Please choose Status</div>
                                                 </div>
@@ -124,7 +122,7 @@
                                                 <td th:text="${task.taskSubject}" />
                                                 <td th:text="${task.assignedEmployee.firstName +' '+ task.assignedEmployee.lastName}" />
                                                 <td th:text="${#temporals.format(task.assignedDate, 'MM/dd/yyyy')}" />
-                                                <td th:text="${task.status.value}" />
+                                                <td th:text="${task.status}" />
                                                 <td><a class="btn btn-warning rounded-0" th:href="@{/task/employee/edit/{id}(id=${task.id})}">Update</a> </td>
                                             </tr>
                                             </tbody>
