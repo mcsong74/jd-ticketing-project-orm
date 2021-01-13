@@ -119,7 +119,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDTO> listAllTasksByStatusIsNot(Status status) {
 
-        User user =userRepository.findByUserName("mazabocuw"); //hard coded, and will be dynamic later
+        User user =userRepository.findByUserName("jalba@test.com"); //hard coded, and will be dynamic later
         List<Task> list = taskRepository.findAllByStatusIsNotAndAssignedEmployee(status, user);
 
         return list.stream().map(taskMapper::converToDTO).collect(Collectors.toList());
@@ -131,4 +131,14 @@ public class TaskServiceImpl implements TaskService {
         List<Task> tasks=taskRepository.findAllByProjectAssignedManager(user);
         return tasks.stream().map(taskMapper::converToDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public void updateStatus(TaskDTO dto){
+        Optional<Task> task=taskRepository.findById(dto.getId());
+        if(task.isPresent()){
+            task.get().setStatus(dto.getStatus());
+            taskRepository.save(task.get());
+        }
+    }
+
 }

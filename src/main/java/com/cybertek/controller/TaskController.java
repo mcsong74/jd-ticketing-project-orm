@@ -93,6 +93,15 @@ public class TaskController {
         model.addAttribute("status", Status.values());
         return "/task/employee-update";
     }
+
+    @PostMapping("/employee/update/{id}")
+    public String employee_update(@PathVariable("id") Long id, TaskDTO taskDTO){
+        taskService.updateStatus(taskDTO);
+
+        return "redirect:/task/employee";
+    }
+
+
 //    @GetMapping("/employee/pending")
 //    public String pendingTasks(Model model) {
 //        model.addAttribute("task", new TaskDTO());
