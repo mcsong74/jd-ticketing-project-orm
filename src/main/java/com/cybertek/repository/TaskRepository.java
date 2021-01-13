@@ -29,5 +29,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findAllByProjectAssignedManager(User manager);
 
-
+    List<Task> findAllByStatusAndAssignedEmployee(Status status, User user);
 }

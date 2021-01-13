@@ -133,7 +133,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void updateStatus(TaskDTO dto){
+    public void updateStatus(TaskDTO dto) {
         Optional<Task> task=taskRepository.findById(dto.getId());
         if(task.isPresent()){
             task.get().setStatus(dto.getStatus());
@@ -141,4 +141,12 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
+
+    @Override
+    public List<TaskDTO> listAllTasksByStatus(Status status) {
+        User user = userRepository.findByUserName("jalba@test.com");
+        List<Task> list=taskRepository.findAllByStatusAndAssignedEmployee(status, user);
+
+        return list.stream().map(taskMapper::converToDTO).collect(Collectors.toList());
+    }
 }
